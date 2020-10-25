@@ -8,7 +8,7 @@ Y = X(1:shift,:);
 % Vérification pour s'assurer que la fréquence minimal demandé n'est pas
 % inférieur à 1. Si oui on ajuste pour ne pas essayer d'accéder à un index
 % 0 dans un array.
-[m,i] = min(Fr)
+[m,i] = min(Fr);
 if m < 1                           
     Fr(i) = 1;
 end
@@ -55,8 +55,9 @@ xTickSecond = fs/hop;
 yTickHz = fs/lengthWin;
 Fr = Fr/yTickHz;
 
+figure
 imagesc(Y)                                     
-ax = gca
+ax = gca;
 ax.YDir = 'normal';
 ax.Title.String = 'Glock.wav';
 ax.XLabel.String = 'Time (in seconds)';
@@ -65,7 +66,7 @@ ax.XTickLabel = 0:1:99;
 ax.YLabel.String = 'Frequency (in Hz)';
 ax.YTick = 0:yTickHz:x;
 ax.YTickLabel = 0:yTickHz^2:100000;    
-ax.YLim = [min(Fr) max(Fr)]
+ax.YLim = [min(Fr) max(Fr)];
 
 end
 
