@@ -8,17 +8,11 @@ Y = X(1:shift,:);
 % Vérification pour s'assurer que la fréquence minimal demandé n'est pas
 % inférieur à 1. Si oui on ajuste pour ne pas essayer d'accéder à un index
 % 0 dans un array.
-% On vérifie aussi que la fréquence maximal n'est pas au-delà de ce qui est
-% possible, au besoin on se base sur la fréquence maximale du
-% spectrogramme.
 [m,i] = min(Fr)
 if m < 1                           
     Fr(i) = 1;
 end
-[m,i] = max(Fr)
-if m > shift
-    Fr(i) = shift;
-end
+
     
 % On fait une dernière réduction du spectrograme selon l'amplitude
 % fréquentielle souhaité.
@@ -55,8 +49,11 @@ for i = 1 : x
 end
 
 % Affichage de l'image avec quelques modifications plus bas pour le 
-% formatage (dont l'affichage du temps en secondes).
+% formatage. On fait la conversion pour montrer le temps en seconde et les
+% fréquences en Hz.
 xTickSecond = fs/hop; 
+yTickHz = fs/lengthWin;
+Fr = Fr/yTickHz;
 
 imagesc(Y)                                     
 ax = gca
@@ -66,6 +63,8 @@ ax.XLabel.String = 'Time (in seconds)';
 ax.XTick = 0:xTickSecond:y;                    
 ax.XTickLabel = 0:1:99;                        
 ax.YLabel.String = 'Frequency (in Hz)';
+ax.YTick = 0:yTickHz:x;
+ax.YTickLabel = 0:yTickHz^2:100000;    
 ax.YLim = [min(Fr) max(Fr)]
 
 end

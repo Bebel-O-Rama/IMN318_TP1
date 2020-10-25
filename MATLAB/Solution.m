@@ -1,12 +1,13 @@
 % Domaine de fréquence et d'intensité pour le spectrogramme final.
 Fr = [0 8000];
-clim = [-45 0];
+clim = [-50 0];
 
 % Calcul de notre signal, fréquence d'échantillonage, fenêtre d'Hamming et
 % de la longueur de nos fenêtres pour le spectrogramme.
 [x, fs] = audioread('Glock.wav');
-N = 200*fs/1000;
+N = 50*fs/1000;
 win = hamming(N);
+    %win = padarray(win, round((fs-N)/2)+1,'both');
 hop = round(length(win)/4);
 
 % Calcul du spectrogramme.
